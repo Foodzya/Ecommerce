@@ -1,8 +1,5 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using eCommerce.Interfaces;
 using eCommerce.Models;
 
@@ -31,7 +28,8 @@ namespace eCommerce.Repositories
         public void DeleteProductById(int id) 
         {
             var itemToBeDeleted = allProducts.FirstOrDefault(p => p.Id == id);
-            allProducts.Remove(itemToBeDeleted);
+            if (itemToBeDeleted != null)
+                allProducts.Remove(itemToBeDeleted);
         }
 
         public void AddProduct(Product product) 

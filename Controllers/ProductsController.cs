@@ -1,7 +1,4 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using eCommerce.Models;
 using eCommerce.Services;
@@ -10,7 +7,7 @@ using eCommerce.Repositories;
 namespace eCommerce.Controllers 
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/products")]
     public class ProductsController : ControllerBase 
     {
         
@@ -36,7 +33,7 @@ namespace eCommerce.Controllers
         }
         
         [HttpPost]
-        public ActionResult AddProduct(Product product) 
+        public ActionResult AddProduct([FromBody] Product product) 
         {
             productsService.AddProduct(product);
             return Ok();
