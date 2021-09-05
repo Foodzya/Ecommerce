@@ -11,6 +11,7 @@ namespace eCommerce.Repositories
 
         public ProductRepository()
         {
+            // test commit
             allProducts = new List<Product> 
             {
             new Product { Id = 1, Name = "Crisps", Price = 35 },
