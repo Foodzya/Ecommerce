@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using eCommerce.Models;
 using eCommerce.Services;
 using eCommerce.Repositories;
+using eCommerce.Interfaces;
 
 namespace eCommerce.Controllers 
 {
@@ -10,32 +11,36 @@ namespace eCommerce.Controllers
     [Route("api/products")]
     public class ProductsController : ControllerBase 
     {
-        
-        ProductsService productsService = new ProductsService(new ProductRepository());
+        private readonly IProductService _service;
+
+        public ProductsController(IProductService service)
+        {
+            _service = service;
+        }
         
         [HttpGet]
         public ActionResult<List<Product>> GetAllProducts() 
         {
-            return productsService.GetAllProducts();
+            return _service.GetAllProducts();
         }
 
         [HttpGet("{id}")]
         public ActionResult<Product> GetProductById([FromRoute] int id) 
         {
-            return productsService.GetProductById(id);
+            return _service.GetProductById(id);
         }
 
         [HttpDelete("{id}")]
         public ActionResult DeleteProductById([FromRoute] int id) 
         {
-            productsService.DeleteProductById(id);
+            _service.DeleteProductById(id);
             return NoContent();
         }
         
         [HttpPost]
         public ActionResult AddProduct([FromBody] Product product) 
         {
-            productsService.AddProduct(product);
+            _service.AddProduct(product);
             return Ok();
         }
     }

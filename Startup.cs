@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using eCommerce.Interfaces;
+using eCommerce.Models;
+using eCommerce.Repositories;
+using eCommerce.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,6 +24,14 @@ namespace eCommerce
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ProductContext>(opt => opt.UseSqlite(Configuration.GetConnectionString("ConnectionString")));
+
+            services.AddControllers();
+
+            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<IProductService, ProductsService>();
+
             
         }
 
@@ -30,7 +43,16 @@ namespace eCommerce
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseMvc();
+            app.UseHttpsRedirection ();
+
+            app.UseRouting ();
+
+            app.UseAuthorization ();
+
+            app.UseEndpoints (endpoints => {
+                endpoints.MapControllers();
+            });
         }
     }
 }
+

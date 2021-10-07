@@ -7,35 +7,36 @@ namespace eCommerce.Repositories
 {
     public class ProductRepository : IProductRepository 
     {
-        private readonly List<Product> allProducts;
+        private readonly ProductContext _context;
 
-        public ProductRepository()
+        public ProductRepository(ProductContext context)
         {
-            // test commit
-            allProducts = new List<Product> 
-            {
-            new Product { Id = 1, Name = "Crisps", Price = 35 },
-            new Product { Id = 2, Name = "Coke", Price = 25 },
-            new Product { Id = 3, Name = "Juice", Price = 30 },
-            new Product { Id = 4, Name = "Tea", Price = 45 }
-            };
+            _context = context;
         }
         public List<Product> GetAllProducts() 
         {
-            return allProducts;
+            return _context.Products.ToList();
         }
 
-        public Product GetProductById(int id) => allProducts.FirstOrDefault(p => p.Id == id);
+        public Product GetProductById(int id) => _context.Products.FirstOrDefault(p => p.Id == id);
         public void DeleteProductById(int id) 
         {
-            var itemToBeDeleted = allProducts.FirstOrDefault(p => p.Id == id);
+            var itemToBeDeleted = _context.Products.FirstOrDefault(p => p.Id == id);
             if (itemToBeDeleted != null)
-                allProducts.Remove(itemToBeDeleted);
+                _context.Products.Remove(itemToBeDeleted);
+
+            SaveChanges();    
         }
 
         public void AddProduct(Product product) 
         {
-            allProducts.Add(product);
+            _context.Products.Add(product);
+            SaveChanges();
+        }
+
+        public void SaveChanges()
+        {
+            _context.SaveChanges();
         }
     }
 }

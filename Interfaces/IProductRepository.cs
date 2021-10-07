@@ -9,5 +9,6 @@ namespace eCommerce.Interfaces
         Product GetProductById(int id);
         void DeleteProductById(int id);
         void AddProduct(Product product);
+        void SaveChanges();
     }
 }
