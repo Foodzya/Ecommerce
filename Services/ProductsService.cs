@@ -25,5 +25,10 @@ namespace eCommerce.Services
         public List<Product> GetAllProducts() => _productRepository.GetAllProducts();
 
         public Product GetProductById(int id) => _productRepository.GetProductById(id);
+
+        public void UpdateProduct(int id, Product product)
+        {
+            _productRepository.UpdateProduct(id, product);
+        }
     }
 }

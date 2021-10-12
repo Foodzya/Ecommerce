@@ -4,7 +4,6 @@ using eCommerce.Repositories;
 using eCommerce.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,9 +27,9 @@ namespace eCommerce
 
             services.AddControllers();
 
-            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddTransient<IProductRepository, ProductRepository>();
 
-            services.AddScoped<IProductService, ProductsService>();
+            services.AddTransient<IProductService, ProductsService>();
 
             
         }

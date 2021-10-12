@@ -38,5 +38,19 @@ namespace eCommerce.Repositories
         {
             _context.SaveChanges();
         }
+
+        public void UpdateProduct(int id, Product product)
+        {
+            Product productToBeUpdated = _context.Products.FirstOrDefault(product => product.Id == id);
+            
+            if (productToBeUpdated != null)
+            {
+                productToBeUpdated.Name = product.Name;
+                productToBeUpdated.Price = product.Price;
+                
+                SaveChanges();
+            }
+            
+        }
     }
 }
