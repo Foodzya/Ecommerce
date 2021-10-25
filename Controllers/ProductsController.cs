@@ -22,7 +22,7 @@ namespace eCommerce.Controllers
         {
             List<ProductViewModel> listOfProductViewModels = new List<ProductViewModel>();
             
-            List<Product> listOfProducts = await _productService.GetAllProducts();
+            List<Product> listOfProducts = await _productService.GetAll();
 
             foreach(Product p in listOfProducts) 
             {
@@ -40,7 +40,7 @@ namespace eCommerce.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] int id) 
         {
-            var GetProductByIdTask = await _productService.GetProductById(id);
+            var GetProductByIdTask = await _productService.GetById(id);
 
             ProductViewModel viewModel = new ProductViewModel()
             {
@@ -55,7 +55,7 @@ namespace eCommerce.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductById([FromRoute] int id) 
         {
-            await _productService.DeleteProductById(id);
+            await _productService.DeleteById(id);
             
             return NoContent();
         }
@@ -63,7 +63,7 @@ namespace eCommerce.Controllers
         [HttpPost]
         public async Task<ActionResult> AddProduct([FromBody] Product product) 
         {
-                await _productService.AddProduct(product);
+                await _productService.Add(product);
                 
                 return Ok();
         }
@@ -71,7 +71,7 @@ namespace eCommerce.Controllers
         [HttpPut("{id}")]
         public async Task<ActionResult> UpdateProduct([FromRoute] int id, [FromBody] Product product)
         {
-                await _productService.UpdateProduct(id, product);
+                await _productService.Update(id, product);
 
                 return Ok();
         }

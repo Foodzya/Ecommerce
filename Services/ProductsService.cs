@@ -13,21 +13,21 @@ namespace eCommerce.Services
             _productRepository = productRepository;
         }
 
-        public async Task AddProduct(Product product)
+        public async Task Add(Product product)
         {
             await _productRepository.Add(product);
         }
 
-        public async Task DeleteProductById(int id)
+        public async Task DeleteById(int id)
         {
             await _productRepository.DeleteById(id);
         }
 
-        public async Task<List<Product>> GetAllProducts() => await _productRepository.GetAll();
+        public async Task<List<Product>> GetAll() => await _productRepository.GetAll();
 
-        public async Task<Product> GetProductById(int id) => await _productRepository.GetById(id);
+        public async Task<Product> GetById(int id) => await _productRepository.GetById(id);
 
-        public async Task UpdateProduct(int id, Product product)
+        public async Task Update(int id, Product product)
         {
             await _productRepository.Update(id, product);
         }

@@ -6,10 +6,10 @@ namespace eCommerce.Interfaces
 {
     public interface IProductService 
     {
-        Task<List<Product>> GetAllProducts();
-        Task<Product> GetProductById(int id);
-        Task DeleteProductById(int id);
-        Task AddProduct(Product product);
-        Task UpdateProduct(int id, Product product);
+        Task<List<Product>> GetAll();
+        Task<Product> GetById(int id);
+        Task DeleteById(int id);
+        Task Add(Product product);
+        Task Update(int id, Product product);
     }
 }
