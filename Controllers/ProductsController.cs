@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using eCommerce.Models;
 using eCommerce.Interfaces;
+using System.Threading.Tasks;
 
 namespace eCommerce.Controllers 
 {
@@ -17,44 +18,62 @@ namespace eCommerce.Controllers
         }
         
         [HttpGet]
-        public ActionResult<List<Product>> GetAllProducts() 
+        public async Task<ActionResult<List<ProductViewModel>>> GetAllProducts() 
         {
-            return _productService.GetAllProducts();
+            List<ProductViewModel> listOfProductViewModels = new List<ProductViewModel>();
+            
+            List<Product> listOfProducts = await _productService.GetAllProducts();
+
+            foreach(Product p in listOfProducts) 
+            {
+                listOfProductViewModels.Add(new ProductViewModel()
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Price = p.Price
+                });
+            }
+
+            return listOfProductViewModels;            
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Product> GetProductById([FromRoute] int id) 
+        public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] int id) 
         {
-            return _productService.GetProductById(id);
+            var GetProductByIdTask = await _productService.GetProductById(id);
+
+            ProductViewModel viewModel = new ProductViewModel()
+            {
+                Id = GetProductByIdTask.Id,
+                Name = GetProductByIdTask.Name,
+                Price = GetProductByIdTask.Price
+            };
+
+            return viewModel;
         }
 
         [HttpDelete("{id}")]
-        public ActionResult DeleteProductById([FromRoute] int id) 
+        public async Task<ActionResult> DeleteProductById([FromRoute] int id) 
         {
-            _productService.DeleteProductById(id);
+            await _productService.DeleteProductById(id);
+            
             return NoContent();
         }
         
         [HttpPost]
-        public ActionResult AddProduct([FromBody] Product product) 
+        public async Task<ActionResult> AddProduct([FromBody] Product product) 
         {
-            _productService.AddProduct(product);
-            return Ok();
+                await _productService.AddProduct(product);
+                
+                return Ok();
         }
 
         [HttpPut("{id}")]
-        public ActionResult UpdateProduct([FromRoute] int id, [FromBody] Product product)
+        public async Task<ActionResult> UpdateProduct([FromRoute] int id, [FromBody] Product product)
         {
-            if (product != null) 
-            {
-                _productService.UpdateProduct(id, product);
+                await _productService.UpdateProduct(id, product);
 
                 return Ok();
-            }
-            else
-                return NoContent(); 
-                
- 
         }
     }
 }

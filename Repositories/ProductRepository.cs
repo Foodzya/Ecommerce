@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using eCommerce.Interfaces;
 using eCommerce.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace eCommerce.Repositories 
 {
@@ -13,42 +15,42 @@ namespace eCommerce.Repositories
         {
             _context = context;
         }
-        public List<Product> GetAllProducts() 
+        public async Task<List<Product>> GetAllProducts() 
         {
-            return _context.Products.ToList();
+            return await _context.Products.ToListAsync();
         }
 
-        public Product GetProductById(int id) => _context.Products.FirstOrDefault(p => p.Id == id);
-        public void DeleteProductById(int id) 
+        public async Task<Product> GetProductById(int id) => await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        public async Task DeleteProductById(int id) 
         {
-            var itemToBeDeleted = _context.Products.FirstOrDefault(p => p.Id == id);
+            var itemToBeDeleted = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (itemToBeDeleted != null)
                 _context.Products.Remove(itemToBeDeleted);
 
-            SaveChanges();    
+            await SaveChanges();    
         }
 
-        public void AddProduct(Product product) 
+        public async Task AddProduct(Product product) 
         {
-            _context.Products.Add(product);
-            SaveChanges();
+            await _context.Products.AddAsync(product);
+            await SaveChanges();
         }
 
-        public void SaveChanges()
+        public async Task SaveChanges()
         {
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void UpdateProduct(int id, Product product)
+        public async Task UpdateProduct(int id, Product product)
         {
-            Product productToBeUpdated = _context.Products.FirstOrDefault(product => product.Id == id);
+            Product productToBeUpdated = await _context.Products.FirstOrDefaultAsync(product => product.Id == id);
             
             if (productToBeUpdated != null)
             {
                 productToBeUpdated.Name = product.Name;
                 productToBeUpdated.Price = product.Price;
                 
-                SaveChanges();
+                await SaveChanges();
             }
             
         }
