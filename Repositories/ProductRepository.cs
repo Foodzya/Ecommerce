@@ -15,13 +15,13 @@ namespace eCommerce.Repositories
         {
             _context = context;
         }
-        public async Task<List<Product>> GetAllProducts() 
+        public async Task<List<Product>> GetAll() 
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetProductById(int id) => await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-        public async Task DeleteProductById(int id) 
+        public async Task<Product> GetById(int id) => await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        public async Task DeleteById(int id) 
         {
             var itemToBeDeleted = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (itemToBeDeleted != null)
@@ -30,7 +30,7 @@ namespace eCommerce.Repositories
             await SaveChanges();    
         }
 
-        public async Task AddProduct(Product product) 
+        public async Task Add(Product product) 
         {
             await _context.Products.AddAsync(product);
             await SaveChanges();
@@ -41,7 +41,7 @@ namespace eCommerce.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateProduct(int id, Product product)
+        public async Task Update(int id, Product product)
         {
             Product productToBeUpdated = await _context.Products.FirstOrDefaultAsync(product => product.Id == id);
             
