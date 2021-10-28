@@ -21,57 +21,56 @@ namespace eCommerce.Controllers
         public async Task<ActionResult<List<ProductViewModel>>> GetAllProducts() 
         {
             List<ProductViewModel> listOfProductViewModels = new List<ProductViewModel>();
-            
-            List<Product> listOfProducts = await _productService.GetAll();
+            ProductViewModel viewModel;
+
+            List<Product> listOfProducts = await _productService.GetAllAsync();            
 
             foreach(Product p in listOfProducts) 
             {
-                listOfProductViewModels.Add(new ProductViewModel()
-                {
-                    Id = p.Id,
-                    Name = p.Name,
-                    Price = p.Price
-                });
+                viewModel = ProductViewModel.MapFromProduct(p);
+
+                listOfProductViewModels.Add(viewModel);
             }
 
-            return listOfProductViewModels;            
+            return Ok(listOfProductViewModels);            
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] int id) 
         {
-            var GetProductByIdTask = await _productService.GetById(id);
+            var ProductById = await _productService.GetByIdAsync(id);
 
-            ProductViewModel viewModel = new ProductViewModel()
-            {
-                Id = GetProductByIdTask.Id,
-                Name = GetProductByIdTask.Name,
-                Price = GetProductByIdTask.Price
-            };
+            ProductViewModel viewModel;
 
-            return viewModel;
+            viewModel = ProductViewModel.MapFromProduct(ProductById);
+
+            return Ok(viewModel);
         }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeleteProductById([FromRoute] int id) 
         {
-            await _productService.DeleteById(id);
+            await _productService.DeleteByIdAsync(id);
             
             return NoContent();
         }
         
         [HttpPost]
-        public async Task<ActionResult> AddProduct([FromBody] Product product) 
+        public async Task<ActionResult> AddProduct([FromBody] ProductInputModel inputModel) 
         {
-                await _productService.Add(product);
+                Product product = ProductInputModel.MapToProduct(inputModel);
+
+                await _productService.AddAsync(product);
                 
                 return Ok();
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> UpdateProduct([FromRoute] int id, [FromBody] Product product)
+        public async Task<ActionResult> UpdateProduct([FromRoute] int id, [FromBody] ProductInputModel inputModel)
         {
-                await _productService.Update(id, product);
+                Product product = ProductInputModel.MapToProduct(inputModel);
+
+                await _productService.UpdateAsync(id, product);
 
                 return Ok();
         }

@@ -15,33 +15,33 @@ namespace eCommerce.Repositories
         {
             _context = context;
         }
-        public async Task<List<Product>> GetAll() 
+        public async Task<List<Product>> GetAllAsync() 
         {
             return await _context.Products.ToListAsync();
         }
 
-        public async Task<Product> GetById(int id) => await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
-        public async Task DeleteById(int id) 
+        public async Task<Product> GetByIdAsync(int id) => await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        public async Task DeleteByIdAsync(int id) 
         {
             var itemToBeDeleted = await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
             if (itemToBeDeleted != null)
                 _context.Products.Remove(itemToBeDeleted);
 
-            await SaveChanges();    
+            await SaveChangesAsync();    
         }
 
-        public async Task Add(Product product) 
+        public async Task AddAsync(Product product) 
         {
             await _context.Products.AddAsync(product);
-            await SaveChanges();
+            await SaveChangesAsync();
         }
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }
 
-        public async Task Update(int id, Product product)
+        public async Task UpdateAsync(int id, Product product)
         {
             Product productToBeUpdated = await _context.Products.FirstOrDefaultAsync(product => product.Id == id);
             
@@ -50,7 +50,7 @@ namespace eCommerce.Repositories
                 productToBeUpdated.Name = product.Name;
                 productToBeUpdated.Price = product.Price;
                 
-                await SaveChanges();
+                await SaveChangesAsync();
             }
             
         }
