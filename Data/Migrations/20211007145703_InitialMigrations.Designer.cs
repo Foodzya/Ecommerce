@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using eCommerce.Models;
+using eCommerce.Data.Context;
 
-namespace eCommerce.Migrations
+namespace eCommerce.Data.Migrations
 {
     [DbContext(typeof(ProductContext))]
     [Migration("20211007145703_InitialMigrations")]

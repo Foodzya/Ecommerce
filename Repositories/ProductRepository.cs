@@ -1,9 +1,9 @@
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using eCommerce.Interfaces;
-using eCommerce.Models;
+using eCommerce.Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using eCommerce.Data.Context;
 
 namespace eCommerce.Repositories 
 {

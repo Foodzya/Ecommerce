@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using eCommerce.Models;
+using eCommerce.Data.Entities;
 
 namespace eCommerce.Interfaces 
 {

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using eCommerce.Models;
+using eCommerce.ControllerModels;
+using eCommerce.Data.Entities;
 using eCommerce.Interfaces;
 using System.Threading.Tasks;
 

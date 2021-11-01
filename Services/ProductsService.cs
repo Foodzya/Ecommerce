@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using eCommerce.Models;
+using eCommerce.Data.Entities;
 using eCommerce.Interfaces;
 using System.Threading.Tasks;
 

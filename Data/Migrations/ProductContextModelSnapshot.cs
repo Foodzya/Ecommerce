@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using eCommerce.Models;
+using eCommerce.Data.Context;
 
-namespace eCommerce.Migrations
+namespace eCommerce.Data.Migrations
 {
     [DbContext(typeof(ProductContext))]
     partial class ProductContextModelSnapshot : ModelSnapshot

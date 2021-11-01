@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
+using eCommerce.Data.Entities;
 
-namespace eCommerce.Models
+namespace eCommerce.ControllerModels
 {
     public class ProductInputModel 
     {
