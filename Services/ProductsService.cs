@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using eCommerce.Data.Entities;
-using eCommerce.Interfaces;
+using eCommerce.Repositories.Interfaces;
+using eCommerce.Services.Interfaces;
 using System.Threading.Tasks;
 
 namespace eCommerce.Services 

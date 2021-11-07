@@ -1,10 +1,9 @@
 using eCommerce.Data.Entities;
 
-namespace eCommerce.ControllerModels 
+namespace eCommerce.Controllers.Models
 {
     public class ProductViewModel 
     {
-        // public int Id { get; set; }
         public string Name { get; set; }
         public double Price { get; set; }
 

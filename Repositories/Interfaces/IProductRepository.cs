@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using eCommerce.Data.Entities;
 
-namespace eCommerce.Interfaces 
+namespace eCommerce.Repositories.Interfaces
 {
-    public interface IProductService 
+    public interface IProductRepository 
     {
         Task<List<Product>> GetAllAsync();
         Task<Product> GetByIdAsync(int id);

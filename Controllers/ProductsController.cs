@@ -1,9 +1,10 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using eCommerce.ControllerModels;
+using eCommerce.Controllers.Models;
 using eCommerce.Data.Entities;
-using eCommerce.Interfaces;
+using eCommerce.Services.Interfaces;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace eCommerce.Controllers 
 {
@@ -21,29 +22,19 @@ namespace eCommerce.Controllers
         [HttpGet]
         public async Task<ActionResult<List<ProductViewModel>>> GetAllProducts() 
         {
-            List<ProductViewModel> listOfProductViewModels = new List<ProductViewModel>();
-            ProductViewModel viewModel;
+            List<Product> listOfProducts = await _productService.GetAllAsync();
 
-            List<Product> listOfProducts = await _productService.GetAllAsync();            
+            var productViewModels = listOfProducts.Select(p => ProductViewModel.MapFromProduct(p));
 
-            foreach(Product p in listOfProducts) 
-            {
-                viewModel = ProductViewModel.MapFromProduct(p);
-
-                listOfProductViewModels.Add(viewModel);
-            }
-
-            return Ok(listOfProductViewModels);            
+            return Ok(productViewModels);  
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<ProductViewModel>> GetProductById([FromRoute] int id) 
         {
-            var ProductById = await _productService.GetByIdAsync(id);
+            var productById = await _productService.GetByIdAsync(id);
 
-            ProductViewModel viewModel;
-
-            viewModel = ProductViewModel.MapFromProduct(ProductById);
+            ProductViewModel viewModel = ProductViewModel.MapFromProduct(productById);
 
             return Ok(viewModel);
         }

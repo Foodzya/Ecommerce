@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using eCommerce.Interfaces;
+using eCommerce.Repositories.Interfaces;
 using eCommerce.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using eCommerce.Data.Context;
@@ -27,17 +27,13 @@ namespace eCommerce.Repositories
             if (itemToBeDeleted != null)
                 _context.Products.Remove(itemToBeDeleted);
 
-            await SaveChangesAsync();    
+            await _context.SaveChangesAsync();
         }
 
         public async Task AddAsync(Product product) 
         {
             await _context.Products.AddAsync(product);
-            await SaveChangesAsync();
-        }
 
-        public async Task SaveChangesAsync()
-        {
             await _context.SaveChangesAsync();
         }
 
@@ -49,8 +45,8 @@ namespace eCommerce.Repositories
             {
                 productToBeUpdated.Name = product.Name;
                 productToBeUpdated.Price = product.Price;
-                
-                await SaveChangesAsync();
+
+                await _context.SaveChangesAsync();
             }
             
         }
