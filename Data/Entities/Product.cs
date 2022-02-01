@@ -1,4 +1,4 @@
-namespace eCommerce.Models 
+namespace eCommerce.Data.Entities 
 {
     public class Product 
     {

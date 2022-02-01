@@ -1,6 +1,8 @@
 using System.Collections.Generic;
-using eCommerce.Models;
-using eCommerce.Interfaces;
+using eCommerce.Data.Entities;
+using eCommerce.Repositories.Interfaces;
+using eCommerce.Services.Interfaces;
+using System.Threading.Tasks;
 
 namespace eCommerce.Services 
 {
@@ -12,18 +14,23 @@ namespace eCommerce.Services
             _productRepository = productRepository;
         }
 
-        public void AddProduct(Product product)
+        public async Task AddAsync(Product product)
         {
-            _productRepository.AddProduct(product);
+            await _productRepository.AddAsync(product);
         }
 
-        public void DeleteProductById(int id)
+        public async Task DeleteByIdAsync(int id)
         {
-            _productRepository.DeleteProductById(id);
+            await _productRepository.DeleteByIdAsync(id);
         }
 
-        public List<Product> GetAllProducts() => _productRepository.GetAllProducts();
+        public async Task<List<Product>> GetAllAsync() => await _productRepository.GetAllAsync();
 
-        public Product GetProductById(int id) => _productRepository.GetProductById(id);
+        public async Task<Product> GetByIdAsync(int id) => await _productRepository.GetByIdAsync(id);
+
+        public async Task UpdateAsync(int id, Product product)
+        {
+            await _productRepository.UpdateAsync(id, product);
+        }
     }
 }
